@@ -45,11 +45,11 @@ export function isUrlExpired(codeUrl: string): boolean {
 }
 
 // Download a zip file from a url.
-export async function downloadZipFromUrl(url: string): Promise<ArrayBuffer | null> {
+export async function downloadZipFromUrl(url: string): Promise<ArrayBuffer | undefined> {
     try {
         const response = await fetch(url)
         if (!response.ok) {
-            return null
+            return undefined
         }
         const zip = await response.arrayBuffer()
         return zip

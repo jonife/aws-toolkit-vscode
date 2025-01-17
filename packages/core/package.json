@@ -416,6 +416,9 @@
         }
     },
     "scripts": {
+        "start": "ts-node src/awsService/appBuilder/bundle.ts",
+        "build": "tsc",
+        "dev": "ts-node-dev src/awsService/appBuilder/bundle.ts",
         "postinstall": "npm run generateTelemetry && npm run compile",
         "clean": "ts-node ../../scripts/clean.ts dist/",
         "copyFiles": "ts-node ./scripts/build/copyFiles.ts",

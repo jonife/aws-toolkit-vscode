@@ -174,7 +174,7 @@
     "AWS.command.downloadStateMachineDefinition": "Download Definition...",
     "AWS.command.searchSchemaPerRegistry": "Search Schemas in Registry",
     "AWS.command.submitFeedback": "Send Feedback...",
-    "AWS.command.downloadAndSync": "Update remote function",
+    "AWS.command.downloadAndSync": "Download Remote Function",
     "AWS.command.downloadSchemaItemCode": "Download Code Bindings",
     "AWS.command.viewLogs": "View Logs",
     "AWS.command.cloudWatchLogs.searchLogGroup": "Search Log Group",
