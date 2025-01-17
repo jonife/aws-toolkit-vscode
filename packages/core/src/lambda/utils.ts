@@ -4,7 +4,7 @@
  */
 
 import * as nls from 'vscode-nls'
-const localize = nls.loadMessageBundle()
+export const localize = nls.loadMessageBundle()
 
 import xml2js = require('xml2js')
 import { CloudFormation, Lambda } from 'aws-sdk'

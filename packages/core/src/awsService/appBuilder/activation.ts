@@ -23,6 +23,7 @@ import { ResourceNode } from './explorer/nodes/resourceNode'
 import { getSyncWizard, runSync } from '../../shared/sam/sync'
 import { getDeployWizard, runDeploy } from '../../shared/sam/deploy'
 import { DeployTypeWizard } from './wizards/deployTypeWizard'
+import { runDownloadAndSyncWorkflow } from './listFunction'
 
 export const templateToOpenAppComposer = 'aws.toolkit.appComposer.templateToOpenOnStart'
 
@@ -187,6 +188,17 @@ async function registerAppBuilderCommands(context: ExtContext): Promise<void> {
                 await runOpenHandler(arg)
             })
         ),
+
+        Commands.register(
+            { id: 'aws.appBuilder.downloadAndSync', autoconnect: false },
+            async () => await runDownloadAndSyncWorkflow()
+        ),
+
+        Commands.register(
+            { id: 'aws.appBuilderForFileExplorer.downloadAndSync', autoconnect: false },
+            async () => await runDownloadAndSyncWorkflow()
+        ),
+
         Commands.register({ id: 'aws.appBuilder.deploy', autoconnect: true }, async (arg) => {
             const wizard = new DeployTypeWizard(
                 await getSyncWizard('infra', arg, undefined, false),
