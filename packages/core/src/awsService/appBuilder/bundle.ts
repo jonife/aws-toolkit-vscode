@@ -9,7 +9,8 @@ import { fs } from '../../shared/fs/fs'
 export const templateToOpenAppComposer = 'aws.toolkit.appComposer.templateToOpenOnStart'
 import { getCode } from './getCode'
 import { getLogger } from '../../shared/logger/logger'
-import { generateFunctionTemplate } from './explorer/generateFunctionTemplate'
+// import { generateFunctionTemplate } from './explorer/generateFunctionTemplate'
+import type { Lambda } from 'aws-sdk'
 
 export async function extractZipToDirectory(zipBlob: ArrayBuffer, outputDir: string): Promise<boolean> {
     try {
@@ -46,31 +47,26 @@ export async function extractZipToDirectory(zipBlob: ArrayBuffer, outputDir: str
     }
 }
 
-export async function main() {
+export async function main(FunctionConfig: Lambda.FunctionConfiguration) {
     try {
-        const outputDir = '/Users/vanditap/src/github.com/Hackathon/test'
-        const zip = await getCode('aws-toolkit-vscode-app-builder', '$LATEST')
+        const outputDir = '/Users/jonife/Documents/dev/java21/VanditaTest'
+        const zip = await getCode(FunctionConfig.FunctionName!, FunctionConfig.Version)
         if (zip) {
             await extractZipToDirectory(zip, outputDir)
         } else {
             getLogger().error('Failed to get zip file')
         }
 
-        try {
-            const template = await generateFunctionTemplate('aws-toolkit-vscode-app-builder')
-            const templatePath = path.join(outputDir, 'template.json')
-            await fs.writeFile(templatePath, JSON.stringify(template))
-            getLogger().info('Template written to template.json')
-        } catch (error) {
-            getLogger().error('Failed to generate template')
-        }
+        // try {
+        //     const template = await generateFunctionTemplate(FunctionConfig.FunctionName!)
+        //     const templatePath = path.join(outputDir, 'template.json')
+        //     await fs.writeFile(templatePath, JSON.stringify(template))
+        //     getLogger().info('Template written to template.json')
+        // } catch (error) {
+        //     getLogger().error('Failed to generate template')
+        // }
     } catch (error) {
         getLogger().error('Error during zip operations:')
         return false
     }
 }
-
-main().catch((error) => {
-    getLogger().error('Unhandled error:')
-    process.exit(1)
-})

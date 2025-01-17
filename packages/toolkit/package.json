@@ -2120,6 +2120,11 @@
                     "group": "inline@1"
                 },
                 {
+                    "command": "aws.appBuilder.linkToConsole",
+                    "when": "viewItem == awsAppBuilderResourceNode.function",
+                    "group": "inline@1"
+                },
+                {
                     "command": "aws.appBuilder.openHandler",
                     "when": "viewItem == awsAppBuilderResourceNode.function",
                     "group": "inline@1"
@@ -3259,6 +3264,30 @@
                 "category": "%AWS.title%",
                 "enablement": "!aws.isWebExtHost",
                 "icon": "$(cloud-download)",
+                "cloud9": {
+                    "cn": {
+                        "category": "%AWS.title.cn%"
+                    }
+                }
+            },
+            {
+                "command": "aws.appBuilder.linkToConsole",
+                "title": "%AWS.command.linkToConsole%",
+                "category": "%AWS.title%",
+                "enablement": "!aws.isWebExtHost",
+                "icon": "$(remote-explorer)",
+                "cloud9": {
+                    "cn": {
+                        "category": "%AWS.title.cn%"
+                    }
+                }
+            },
+            {
+                "command": "aws.appBuilderForFileExplorer.linkToConsole",
+                "title": "%AWS.command.linkToConsole%",
+                "category": "%AWS.title%",
+                "enablement": "!aws.isWebExtHost",
+                "icon": "$(remote-explorer)",
                 "cloud9": {
                     "cn": {
                         "category": "%AWS.title.cn%"

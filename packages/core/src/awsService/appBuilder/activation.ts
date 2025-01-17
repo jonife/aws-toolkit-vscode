@@ -23,7 +23,7 @@ import { ResourceNode } from './explorer/nodes/resourceNode'
 import { getSyncWizard, runSync } from '../../shared/sam/sync'
 import { getDeployWizard, runDeploy } from '../../shared/sam/deploy'
 import { DeployTypeWizard } from './wizards/deployTypeWizard'
-import { runDownloadAndSyncWorkflow } from './listFunction'
+import { linkToLambdaConsole, runDownloadAndSyncWorkflow } from './listFunction'
 
 export const templateToOpenAppComposer = 'aws.toolkit.appComposer.templateToOpenOnStart'
 
@@ -197,6 +197,16 @@ async function registerAppBuilderCommands(context: ExtContext): Promise<void> {
         Commands.register(
             { id: 'aws.appBuilderForFileExplorer.downloadAndSync', autoconnect: false },
             async () => await runDownloadAndSyncWorkflow()
+        ),
+
+        Commands.register(
+            { id: 'aws.appBuilderForFileExplorer.linkToConsole', autoconnect: false },
+            async (arg: ResourceNode) => await linkToLambdaConsole(arg)
+        ),
+
+        Commands.register(
+            { id: 'aws.appBuilder.linkToConsole', autoconnect: false },
+            async (arg: ResourceNode) => await linkToLambdaConsole(arg)
         ),
 
         Commands.register({ id: 'aws.appBuilder.deploy', autoconnect: true }, async (arg) => {

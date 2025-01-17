@@ -3,24 +3,25 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { LambdaClient, GetFunctionCommand } from '@aws-sdk/client-lambda'
+// import { LambdaClient, GetFunctionCommand } from '@aws-sdk/client-lambda'
 import * as url from 'url'
+import { DefaultLambdaClient } from '../../shared/clients/lambdaClient'
 
 export async function getCodeUrl(functionName: string, qualifier?: string): Promise<string> {
-    const lambda = new LambdaClient({})
+    // const lambda = new LambdaClient({})
+    const lambda = new DefaultLambdaClient('us-west-2')
 
     try {
-        const command = new GetFunctionCommand({
-            FunctionName: functionName,
-            Qualifier: qualifier || '$LATEST',
-        })
+        // const command = new GetFunctionCommand({
+        //     FunctionName: functionName,
+        //     Qualifier: qualifier || '$LATEST',
+        // })
 
-        const response = await lambda.send(command)
+        const response = await lambda.getFunction(functionName)
 
         if (!response.Code?.Location) {
             throw new Error('Code URL not found in function response')
         }
-
         return response.Code.Location
     } catch (error) {
         throw new Error(`Failed to get function code URL: ${error}`)

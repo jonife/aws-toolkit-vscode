@@ -9,7 +9,7 @@ import { FunctionConfiguration } from 'aws-sdk/clients/lambda'
 import { getLogger } from '../../../shared/logger/logger'
 
 export async function generateFunctionTemplate(funcName: string) {
-    const client = new DefaultLambdaClient('us-east-1')
+    const client = new DefaultLambdaClient('us-west-2')
     const functionData = await client.getFunction(funcName)
     // let eventInvokeConfig: any = await client.getEventInvokeConfigs(funcName);
     // if (eventInvokeConfig) {
