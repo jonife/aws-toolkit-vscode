@@ -24,9 +24,12 @@ export interface ListFunctionPickItems extends vscode.QuickPickItem {
 }
 
 export async function linkToLambdaConsole(node?: ResourceNode) {
-    const funcName = node?.resource.resource.Id
+    // const funcName = node?.resource.resource.Id
+    // const url = vscode.Uri.parse(
+    //     `https://us-west-2.console.aws.amazon.com/lambda/home#/functions/${funcName}?tab=monitoring`
+    // )
     const url = vscode.Uri.parse(
-        `https://us-west-2.console.aws.amazon.com/lambda/home#/functions/${funcName}?tab=monitoring`
+        `https://us-west-2.console.aws.amazon.com/lambda/home?region=us-west-2#/functions/test-function?tab=monitoring`
     )
     await openUrl(url)
 }

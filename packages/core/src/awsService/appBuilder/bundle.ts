@@ -11,6 +11,7 @@ import { getCode } from './getCode'
 import { getLogger } from '../../shared/logger/logger'
 // import { generateFunctionTemplate } from './explorer/generateFunctionTemplate'
 import type { Lambda } from 'aws-sdk'
+import { generateFunctionTemplate } from './explorer/generateFunctionTemplate'
 
 export async function extractZipToDirectory(zipBlob: ArrayBuffer, outputDir: string): Promise<boolean> {
     try {
@@ -57,14 +58,14 @@ export async function main(FunctionConfig: Lambda.FunctionConfiguration) {
             getLogger().error('Failed to get zip file')
         }
 
-        // try {
-        //     const template = await generateFunctionTemplate(FunctionConfig.FunctionName!)
-        //     const templatePath = path.join(outputDir, 'template.json')
-        //     await fs.writeFile(templatePath, JSON.stringify(template))
-        //     getLogger().info('Template written to template.json')
-        // } catch (error) {
-        //     getLogger().error('Failed to generate template')
-        // }
+        try {
+            const template = await generateFunctionTemplate(FunctionConfig.FunctionName!)
+            const templatePath = path.join(outputDir, 'template.yaml')
+            await fs.writeFile(templatePath, template)
+            getLogger().info('Template written to template.yaml')
+        } catch (error) {
+            getLogger().error('Failed to generate template')
+        }
     } catch (error) {
         getLogger().error('Error during zip operations:')
         return false
