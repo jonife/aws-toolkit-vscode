@@ -1,11 +1,14 @@
+/*!
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
 import { transform } from './templateTransformer'
 import { DefaultLambdaClient } from '../../../shared/clients/lambdaClient'
 import { List } from 'immutable'
 import { FunctionConfiguration } from 'aws-sdk/clients/lambda'
+import { getLogger } from '../../../shared/logger/logger'
 
-export async function generateFunctionTemplate() {
-    const funcName = 'test-py'
-
+export async function generateFunctionTemplate(funcName: string) {
     const client = new DefaultLambdaClient('us-east-1')
     const functionData = await client.getFunction(funcName)
     // let eventInvokeConfig: any = await client.getEventInvokeConfigs(funcName);
@@ -16,9 +19,7 @@ export async function generateFunctionTemplate() {
         MaximumEventAgeInSeconds: 21600,
         MaximumRetryAttempts: 2,
     }
-    const functionUrlConfig = await client.getFunctionUrlConfigs(funcName)
-    console.log(eventInvokeConfig)
-    console.log(functionUrlConfig)
+    await client.getFunctionUrlConfigs(funcName)
     const lambdaConfig: FunctionConfiguration | undefined = functionData.Configuration
 
     // Do some finessing for buildSamObject's expected format
@@ -85,8 +86,8 @@ export async function generateFunctionTemplate() {
         maximumRetryAttempts: eventInvokeConfig.MaximumRetryAttempts, // Sub-property of eventInvokeConfig
     }
 
-    console.log(lambdaConfig)
-    console.log(lambda)
+    // getLogger().info(lambdaConfig)
+    getLogger().info(lambda)
 
     const triggerNodes = List()
     // Now do events (triggers)
